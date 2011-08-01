@@ -1,0 +1,7 @@
+#Ignore list#
+.class
+.log
+.settings
+.project
+.svn
+
