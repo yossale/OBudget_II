@@ -56,7 +56,7 @@ public class OBudget2 implements EntryPoint {
 		vStack.addMember(new Label(" "));
 		vStack.addMember(new Label("Label - 1"));
 		vStack.addMember(stack);
-
+		
 		vStack.draw();
 	}
 
