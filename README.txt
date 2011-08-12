@@ -7,7 +7,7 @@ Working with the OBudget2 project :
   - git clone git@github.com:<your username>/OBudget_II.git
   - cd OBudget_II/
   - git remote add upstream git://github.com/yossale/OBudget_II.git
-  - git fetch stream
+  - git fetch upstream
   - git push origin master
 3. Open the project via eclipse 
 4. You're probably missing the 3rdParty dependency of the smartGwt. You can download it from here : http://code.google.com/p/smartgwt/downloads/detail?name=smartgwt-2.4.zip&can=2&q=
