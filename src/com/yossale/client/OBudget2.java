@@ -1,16 +1,7 @@
 package com.yossale.client;
 
-import java.util.List;
-
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.core.client.JsArray;
-import com.google.gwt.json.client.JSONObject;
-import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.ui.Label;
-import com.smartgwt.client.data.XJSONDataSource;
-import com.smartgwt.client.data.fields.DataSourceIntegerField;
-import com.smartgwt.client.data.fields.DataSourceTextField;
 import com.smartgwt.client.types.DragDataAction;
 import com.smartgwt.client.widgets.layout.HStack;
 import com.smartgwt.client.widgets.layout.VStack;
@@ -29,7 +20,9 @@ public class OBudget2 implements EntryPoint {
     TreeGrid localXmlFile = new TreeGrid();
     localXmlFile.setHeight(300);
     localXmlFile.setWidth(500);
-    localXmlFile.setDataSource(DataSourceTest.getInstance());
+    OneYearBudgetDataSource instance = OneYearBudgetDataSource.getInstance();
+        
+    localXmlFile.setDataSource(instance);
     localXmlFile.setAutoFetchData(true);
     localXmlFile.setCanDragRecordsOut(true);
     localXmlFile.setDragDataAction(DragDataAction.MOVE);  
@@ -52,14 +45,14 @@ public class OBudget2 implements EntryPoint {
 
     remoteJsonQuery.setHeight(300);
     remoteJsonQuery.setWidth(500);
-//    remoteJsonQuery.setDataSource(yedaDS);
+    //remoteJsonQuery.setDataSource();
     remoteJsonQuery.setAutoFetchData(true);
     remoteJsonQuery.setDragDataAction(DragDataAction.MOVE);
     remoteJsonQuery.setCanAcceptDroppedRecords(true);
 
     HStack stack = new HStack();
     stack.addMember(localXmlFile);
-    stack.addMember(remoteJsonQuery);
+    //stack.addMember(remoteJsonQuery);
 
     VStack vStack = new VStack();
     vStack.addMember(new Label(" "));
@@ -67,28 +60,7 @@ public class OBudget2 implements EntryPoint {
     jsonLabel = new Label("N/A");
     vStack.addMember(jsonLabel);
     vStack.addMember(stack);
-    
-
     vStack.draw();
-    
-    getBudgetData();
-  }
-
-  private void getBudgetData() {
-    System.out.println("in getBudgetData");
-    JSONRequest.get("http://api.yeda.us/data/gov/mof/budget/?o=jsonp&query={%22year%22:2011}&limit=50&callback=", new JSONRequestHandler() { 
-      @Override
-      public void onRequestComplete(JavaScriptObject json, String jsonString) {
-        JsArray<JavaScriptObject> array = json.cast();
-        System.out.println("in onRequestComplete: " + array.toString());
-        returnedJson = json.toString();
-        jsonLabel.setText(jsonString);
-        JSONObject object = new JSONObject(json);
-        JSONValue element = object.get("2");
-        System.out.println("element: " + element);
-        
-      }
-    });
   }
 
 }
