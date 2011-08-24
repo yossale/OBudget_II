@@ -6,6 +6,9 @@ import com.smartgwt.client.types.DragDataAction;
 import com.smartgwt.client.widgets.layout.HStack;
 import com.smartgwt.client.widgets.layout.VStack;
 import com.smartgwt.client.widgets.tree.TreeGrid;
+import com.smartgwt.client.widgets.tree.TreeNode;
+import com.smartgwt.client.widgets.tree.events.FolderClickEvent;
+import com.smartgwt.client.widgets.tree.events.FolderClickHandler;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -13,19 +16,29 @@ import com.smartgwt.client.widgets.tree.TreeGrid;
 public class OBudget2 implements EntryPoint {
 
   protected String returnedJson;
-  private Label jsonLabel;
+  private Label grossAllocatedLabel;
+  private Label codeLabel;
 
   public void onModuleLoad() {
 
-    TreeGrid localXmlFile = new TreeGrid();
-    localXmlFile.setHeight(300);
-    localXmlFile.setWidth(500);
+    TreeGrid budgetTree = new TreeGrid();
+    budgetTree.setHeight(300);
+    budgetTree.setWidth(500);
     OneYearBudgetDataSource instance = OneYearBudgetDataSource.getInstance();
         
-    localXmlFile.setDataSource(instance);
-    localXmlFile.setAutoFetchData(true);
-    localXmlFile.setCanDragRecordsOut(true);
-    localXmlFile.setDragDataAction(DragDataAction.MOVE);  
+    budgetTree.setDataSource(instance);
+    budgetTree.setAutoFetchData(true);
+    budgetTree.setCanDragRecordsOut(true);
+    budgetTree.setDragDataAction(DragDataAction.MOVE);  
+    budgetTree.addFolderClickHandler(new FolderClickHandler() {
+      
+      @Override
+      public void onFolderClick(FolderClickEvent event) {
+        TreeNode folder = event.getFolder();
+        codeLabel.setText(folder.getAttribute("code"));
+        grossAllocatedLabel.setText(folder.getAttribute("gross_allocated"));
+      }
+    });
 
 
 //    XJSONDataSource yedaDS = new XJSONDataSource();
@@ -51,14 +64,15 @@ public class OBudget2 implements EntryPoint {
     remoteJsonQuery.setCanAcceptDroppedRecords(true);
 
     HStack stack = new HStack();
-    stack.addMember(localXmlFile);
+    stack.addMember(budgetTree);
     //stack.addMember(remoteJsonQuery);
 
     VStack vStack = new VStack();
     vStack.addMember(new Label(" "));
-    vStack.addMember(new Label("Label - 2"));
-    jsonLabel = new Label("N/A");
-    vStack.addMember(jsonLabel);
+    codeLabel = new Label("Code");
+    vStack.addMember(codeLabel);
+    grossAllocatedLabel = new Label("grossAllocated");
+    vStack.addMember(grossAllocatedLabel);
     vStack.addMember(stack);
     vStack.draw();
   }
