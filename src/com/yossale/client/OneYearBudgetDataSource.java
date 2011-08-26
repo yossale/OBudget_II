@@ -1,7 +1,7 @@
+
 package com.yossale.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.core.client.JsArray;
 import com.google.gwt.json.client.JSONNull;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONString;
@@ -24,6 +24,7 @@ public class OneYearBudgetDataSource extends DataSource {
   private OneYearBudgetDataSource(String id) {
     setID(id);
     setTitleField("title");
+    setDescriptionField("title");
     
     DataSourceTextField topicName = new DataSourceTextField("title", "שם הסעיף");
     
@@ -34,7 +35,7 @@ public class OneYearBudgetDataSource extends DataSource {
     DataSourceIntegerField parent = new DataSourceIntegerField("parent","סעיף אב");
     parent.setRequired(true);
     parent.setForeignKey("code");
-    parent.setRootValue("000000000");
+    parent.setRootValue("00");
 
     DataSourceIntegerField grossAllocated = new DataSourceIntegerField("gross_allocated","הקצאה ברוטו");
 
@@ -42,7 +43,6 @@ public class OneYearBudgetDataSource extends DataSource {
     setDataURL("http://api.yeda.us/data/gov/mof/budget/?o=jsonp&query={%22year%22:2011}&limit=1500");
     setDataFormat(DSDataFormat.JSON);
     setDataTransport(RPCTransport.SCRIPTINCLUDE);
-    //getBudgetData();
   }
   
   public String getCallbackParam() {
@@ -57,9 +57,11 @@ public class OneYearBudgetDataSource extends DataSource {
     JSONObject object = new JSONObject((JavaScriptObject)data);
     for (int i = 0; i < object.size(); ++i) {
       JSONObject element =  (JSONObject) object.get(String.valueOf(i));
-      String code = ((JSONString) element.get("code")).stringValue();
+      // Drop unneeded attributes.
       element.put("_src", JSONNull.getInstance());
       element.put("_srcslug", JSONNull.getInstance());
+      // Create the "parent" attribute based on 
+      String code = ((JSONString) element.get("code")).stringValue();
       if (code.length() > 2) {
         String parent = code.substring(0, code.length() - 2);
         element.put("parent", new JSONString(parent));
@@ -68,37 +70,15 @@ public class OneYearBudgetDataSource extends DataSource {
       }
     }
   }
-    
-  
-/*
-  private void getBudgetData() {
-    System.out.println("in getBudgetData");
-    JSONRequest.get("http://api.yeda.us/data/gov/mof/budget/?o=jsonp&query={%22year%22:2011}&limit=50&callback=", new JSONRequestHandler() { 
-      @Override
-      public void onRequestComplete(JavaScriptObject json, String jsonString) {
-        JSONObject object = new JSONObject(json);
-        DataClass[] data = new DataClass[object.size()];
-        try {
-          for (int i = 0; i < object.size(); ++i) {
-            JSONObject element = (JSONObject) object.get(String.valueOf(i));
-            String code = ((JSONString) element.get("code")).stringValue();
-            element.put("_src", JSONNull.getInstance());
-            element.put("_srcslug", JSONNull.getInstance());
-            if (code.length() > 2) {
-              String parent = code.substring(0, code.length() - 2);
-              element.put("parent", new JSONString(parent));
-            } else {
-              element.put("parent", new JSONString("000"));
-            }
-            data[i] = new DataClass(element.getJavaScriptObject());
-          }
-        } catch (RuntimeException e) {
-          e.printStackTrace();
-        }
-        setTestData(data);
-      }
-    });
-    */
+
+  @Override
+  protected Object transformRequest(DSRequest dsRequest) {
+    System.out.println("in transformRequest: ");
+    System.out.println("url: " + dsRequest.getActionURL());
+    System.out.println("startRow: " + dsRequest.getStartRow());
+    System.out.println("endRow: " + dsRequest.getEndRow());
+    return "";
   }
-
-
+  
+  
+}
