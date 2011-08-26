@@ -40,7 +40,7 @@ public class OneYearBudgetDataSource extends DataSource {
     DataSourceIntegerField grossAllocated = new DataSourceIntegerField("gross_allocated","הקצאה ברוטו");
 
     setFields(topicName, code, parent, grossAllocated);
-    setDataURL("http://api.yeda.us/data/gov/mof/budget/?o=jsonp&query={%22year%22:2011}&limit=1500");
+    setDataURL("http://api.yeda.us/data/gov/mof/budget/?o=jsonp&query={%22year%22:2011}");//&limit=100000");
     setDataFormat(DSDataFormat.JSON);
     setDataTransport(RPCTransport.SCRIPTINCLUDE);
   }
@@ -56,29 +56,25 @@ public class OneYearBudgetDataSource extends DataSource {
     // TODO Auto-generated method stub
     JSONObject object = new JSONObject((JavaScriptObject)data);
     for (int i = 0; i < object.size(); ++i) {
-      JSONObject element =  (JSONObject) object.get(String.valueOf(i));
-      // Drop unneeded attributes.
-      element.put("_src", JSONNull.getInstance());
-      element.put("_srcslug", JSONNull.getInstance());
-      // Create the "parent" attribute based on 
-      String code = ((JSONString) element.get("code")).stringValue();
-      if (code.length() > 2) {
-        String parent = code.substring(0, code.length() - 2);
-        element.put("parent", new JSONString(parent));
-      } else {
-        element.put("parent", new JSONString("000000000"));
+      try {
+        JSONObject element =  (JSONObject) object.get(String.valueOf(i));
+        // Drop unneeded attributes.
+        element.put("_src", JSONNull.getInstance());
+        element.put("_srcslug", JSONNull.getInstance());
+        // Create the "parent" attribute based on 
+        String code = ((JSONString) element.get("code")).stringValue();
+        if (code.length() > 2) {
+          String parent = code.substring(0, code.length() - 2);
+          element.put("parent", new JSONString(parent));
+        } else {
+          element.put("parent", new JSONString("000000000"));
+        }
+      } catch (RuntimeException e) {
+        System.out.println("i is " + i + ", element is " + object.get(String.valueOf(i)));
+        // log and ignore any error in the data
+        e.printStackTrace();
       }
     }
   }
-
-  @Override
-  protected Object transformRequest(DSRequest dsRequest) {
-    System.out.println("in transformRequest: ");
-    System.out.println("url: " + dsRequest.getActionURL());
-    System.out.println("startRow: " + dsRequest.getStartRow());
-    System.out.println("endRow: " + dsRequest.getEndRow());
-    return "";
-  }
-  
   
 }
