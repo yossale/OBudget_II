@@ -34,11 +34,12 @@ public class OneYearBudgetDataSource extends DataSource {
     DataSourceIntegerField parent = new DataSourceIntegerField("parent","סעיף אב");
     parent.setRequired(true);
     parent.setForeignKey("code");
-    parent.setRootValue("000");
-    
+    parent.setRootValue("000000000");
 
-    setFields(topicName, code, parent);
-    setDataURL("http://api.yeda.us/data/gov/mof/budget/?o=jsonp&query={%22year%22:2011}&limit=50");
+    DataSourceIntegerField grossAllocated = new DataSourceIntegerField("gross_allocated","הקצאה ברוטו");
+
+    setFields(topicName, code, parent, grossAllocated);
+    setDataURL("http://api.yeda.us/data/gov/mof/budget/?o=jsonp&query={%22year%22:2011}&limit=1500");
     setDataFormat(DSDataFormat.JSON);
     setDataTransport(RPCTransport.SCRIPTINCLUDE);
     //getBudgetData();
@@ -63,7 +64,7 @@ public class OneYearBudgetDataSource extends DataSource {
         String parent = code.substring(0, code.length() - 2);
         element.put("parent", new JSONString(parent));
       } else {
-        element.put("parent", new JSONString("000"));
+        element.put("parent", new JSONString("000000000"));
       }
     }
   }
