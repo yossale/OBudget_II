@@ -13,10 +13,10 @@
 
 <inherits name="com.smartgwt.SmartGwt" />
 	<inherits name="com.smartgwt.SmartGwtNoTheme" />
-	<inherits name="com.smartclient.theme.enterpriseblue.EnterpriseBlue" />
+<!-- <inherits name="com.smartclient.theme.enterpriseblue.EnterpriseBlue" />
 	<inherits
 		name="com.smartclient.theme.enterpriseblue.EnterpriseBlueResources" />
-
+ -->  
 
   <!-- Other module inherits                                      -->
 
