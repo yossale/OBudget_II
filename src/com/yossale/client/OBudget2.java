@@ -23,6 +23,13 @@ public class OBudget2 implements EntryPoint {
 
   public void onModuleLoad() {
 
+//    SelectItem selectYear = new SelectItem("selectYear");
+//    selectYear.setValueMap("2011", "2010", "2009");
+//    
+//    final DynamicForm form = new DynamicForm();  
+//    form.setWidth(300);
+//    form.setItems(selectYear);
+
     TreeGrid budgetTree = new TreeGrid();
     budgetTree.setHeight(300);
     budgetTree.setWidth(500);
@@ -82,6 +89,7 @@ public class OBudget2 implements EntryPoint {
     stack.addMember(budgetTree);
     //stack.addMember(remoteJsonQuery);
 
+    
     VStack vStack = new VStack();
     vStack.addMember(new Label(" "));
     codeLabel = new Label("Code");
@@ -90,6 +98,7 @@ public class OBudget2 implements EntryPoint {
     vStack.addMember(grossAllocatedLabel);
     vStack.addMember(stack);
     vStack.draw();
-  }
+
+}
 
 }
