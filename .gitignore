@@ -3,4 +3,7 @@
 .log
 .settings
 .svn
+settings/*
+test-classes/*
+war/obudget2/*
 
