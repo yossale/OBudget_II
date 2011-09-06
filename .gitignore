@@ -6,4 +6,5 @@
 settings/*
 test-classes/*
 war/obudget2/*
+.classpath
 
