@@ -1,6 +1,6 @@
 /*
  * Isomorphic SmartClient
- * Version SC_SNAPSHOT-2010-12-31 (2010-12-31)
+ * Version SC_SNAPSHOT-2011-08-02 (2011-08-02)
  * Copyright(c) 1998 and beyond Isomorphic Software, Inc. All rights reserved.
  * "SmartClient" is a trademark of Isomorphic Software, Inc.
  *
@@ -38,10 +38,11 @@ return _1.toString()}
 return this.flashSupported}
 ,isc.A.getFlashVersion=function isc_c_Flashlet_getFlashVersion(){if(this.flashAvailable())return this.flashVersion}
 );isc.B._maxIndex=isc.C+2;isc.A=isc.Flashlet.getPrototype();isc.A.useClipDiv=false;isc.A.useDragMask=false;isc.A.classID="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000";isc.A.codeBase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0";isc.A.pluginsPage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash";isc.A.type="application/x-shockwave-flash";isc.A=isc.Flashlet.getPrototype();isc.B=isc._allFuncs;isc.C=isc.B._maxIndex;isc.D=isc._funcClasses;isc.D[isc.C]=isc.A.Class;isc.B.push(isc.A.setSrc=function isc_Flashlet_setSrc(_1){this.src=_1;this.markForRedraw()}
-,isc.A.getInnerHTML=function isc_Flashlet_getInnerHTML(){var _1=isc.SB.create();if(this.name==null)this.name=this.getPluginID();_1.append("<object classid='",this.classID,"' codebase='",this.codeBase,"' width='100%' height='100%' ID='",this.name,"'");if(this.extraObjectHTML)_1.append(" ",this.extraObjectHTML);_1.append(">");var _2={};isc.addProperties(_2,this.params);if(!_2.movie)_2.movie=this.src||this.movie;if(!_2.wmode)_2.wmode="opaque"
-for(var _3 in _2)
-_1.append("<param name='",_3,"' value='",_2[_3],"'>");_1.append("<embed width='100%' height='100%' name='",this.name,"' src=\"",this.src,"\" pluginspage=\"",this.pluginsPage,"\" type='",this.type,"'");for(var _3 in _2)
-_1.append(" ",_3,"='",_2[_3],"'");if(this.extraEmbedHTML)_1.append(" ",this.extraEmbedHTML);_1.append(">");_1.append("</embed>");_1.append("</object>");return _1.toString()}
+,isc.A.getInnerHTML=function isc_Flashlet_getInnerHTML(){var _1=isc.SB.create();if(this.name==null)this.name=this.getPluginID();var _2=window.location.protocol,_3=this.codeBase;if(_2&&_2.startsWith("https")&&_3&&_3.startsWith("http://")){_3=_3.replace("http://","https://")}
+_1.append("<object classid='",this.classID,"' codebase='",_3,"' width='100%' height='100%' ID='",this.name,"'");if(this.extraObjectHTML)_1.append(" ",this.extraObjectHTML);_1.append(">");var _4={};isc.addProperties(_4,this.params);if(!_4.movie)_4.movie=this.src||this.movie;if(!_4.wmode)_4.wmode="opaque"
+for(var _5 in _4)
+_1.append("<param name='",_5,"' value='",_4[_5],"'>");_1.append("<embed width='100%' height='100%' name='",this.name,"' src=\"",this.src,"\" pluginspage=\"",this.pluginsPage,"\" type='",this.type,"'");for(var _5 in _4)
+_1.append(" ",_5,"='",_4[_5],"'");if(this.extraEmbedHTML)_1.append(" ",this.extraEmbedHTML);_1.append(">");_1.append("</embed>");_1.append("</object>");return _1.toString()}
 ,isc.A.getPluginID=function isc_Flashlet_getPluginID(){return this.getID()+"$261"}
 ,isc.A.getPluginHandle=function isc_Flashlet_getPluginHandle(){if(this.name==null)return null;if(isc.Browser.isIE)return window[this.name];return document[this.name]}
 );isc.B._maxIndex=isc.C+4;isc.ClassFactory.defineClass("SVG","BrowserPlugin");isc.A=isc.SVG.getPrototype();isc.A.useNativeMask=true;isc.A.pluginsPage="http://www.adobe.com/svg/viewer/install/";isc.A.src=isc.Page.getHelperDir()+"svgCanvas.svg";isc.A=isc.SVG;isc.B=isc._allFuncs;isc.C=isc.B._maxIndex;isc.D=isc._funcClasses;isc.D[isc.C]=isc.A.Class;isc.B.push(isc.A.register=function isc_c_SVG_register(_1){var _2=_1.getTarget();var _3=_2.getOwnerDocument();var _4=this.getSVGCanvas(_3);_4.addProperties({svgElement:_2,svgDocument:_3,svgDoc:_3,svgRoot:_3.getRootElement()});var _5=_4.getPluginHandle();if(_5["window"])_5["window"].svgCanvas=_4;if(isc.isA.Function(_4.initSVG))_4.initSVG();else if(isc.isA.Function(_4.initsvg))_4.initsvg();if(_4.useNativeMask)_4.$266();if(_4.$267)_4.showNativeMask()}
@@ -71,7 +72,7 @@ _1.append("</object>");return _1.toString()}
 );isc.B._maxIndex=isc.C+3;isc._moduleEnd=isc._PluginBridges_end=(isc.timestamp?isc.timestamp():new Date().getTime());if(isc.Log&&isc.Log.logIsInfoEnabled('loadTime'))isc.Log.logInfo('PluginBridges module init time: ' + (isc._moduleEnd-isc._moduleStart) + 'ms','loadTime');delete isc.definingFramework;}else{if(window.isc && isc.Log && isc.Log.logWarn)isc.Log.logWarn("Duplicate load of module 'PluginBridges'.");}
 /*
  * Isomorphic SmartClient
- * Version SC_SNAPSHOT-2010-12-31 (2010-12-31)
+ * Version SC_SNAPSHOT-2011-08-02 (2011-08-02)
  * Copyright(c) 1998 and beyond Isomorphic Software, Inc. All rights reserved.
  * "SmartClient" is a trademark of Isomorphic Software, Inc.
  *

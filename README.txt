@@ -14,7 +14,7 @@ Working with the OBudget2 project :
 3. Open the project via eclipse 
 	- File -> Import -> General -> Existing projects -> Go to the folder that contains the .project file
 	- FIx the smart-gwt dependency : 
-		- Download the smart-gwt package (http://code.google.com/p/smartgwt/downloads/detail?name=smartgwt-2.4.zip&can=2&q=)
+		- Download the smart-gwt package 2.5 (or up) (http://code.google.com/p/smartgwt/downloads/detail?name=smartgwt-2.5.zip&can=2&q=)
 		- Download the gwt visualization dependency - http://code.google.com/p/gwt-google-apis/downloads/detail?name=gwt-visualization-1.1.1.zip&can=2&q=
 		- In eclipse : right click on the project -> Properties -> Java build path -> Libraries -> 
 			- Remove the old smartget jar (it has a red !) 

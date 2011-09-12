@@ -379,6 +379,8 @@
       
       <xsl:variable name="useMinOccurs" select="@minOccurs != 1"/>
 
+      <xsl:variable name="qualify" select="@form = 'qualified'"/>
+
       <xsl:choose>
 
          
@@ -395,6 +397,10 @@
 
                 <xsl:if test="$nillable">
                     <xsl:attribute name="nillable">true</xsl:attribute>
+                </xsl:if>
+
+                <xsl:if test="$qualify">
+                    <xsl:attribute name="mustQualify">true</xsl:attribute>
                 </xsl:if>
 
                 <xsl:if test="$useMaxOccurs">
@@ -443,13 +449,14 @@
                     <xsl:if test="$debug">
                         <xsl:attribute name="xmlSource">typeAttrOfSimpleType</xsl:attribute>
                     </xsl:if>
-
                     <xsl:if test="$inapplicable">
                         <xsl:attribute name="inapplicable">true</xsl:attribute>
                     </xsl:if>
-
                     <xsl:if test="$nillable">
                         <xsl:attribute name="nillable">true</xsl:attribute>
+                    </xsl:if>
+                    <xsl:if test="$qualify">
+                        <xsl:attribute name="mustQualify">true</xsl:attribute>
                     </xsl:if>
 
                     <xsl:if test="$useMaxOccurs">
@@ -491,13 +498,14 @@
                     <xsl:if test="$debug">
                         <xsl:attribute name="xmlSource">typeAttrOfComplexType</xsl:attribute>
                     </xsl:if>
-
                     <xsl:if test="$inapplicable">
                         <xsl:attribute name="inapplicable">true</xsl:attribute>
                     </xsl:if>
-
                     <xsl:if test="$nillable">
                         <xsl:attribute name="nillable">true</xsl:attribute>
+                    </xsl:if>
+                    <xsl:if test="$qualify">
+                        <xsl:attribute name="mustQualify">true</xsl:attribute>
                     </xsl:if>
 
                     <xsl:if test="$useMaxOccurs">
@@ -566,6 +574,9 @@
                             <xsl:if test="$nillable">
                                 <xsl:attribute name="nillable">true</xsl:attribute>
                             </xsl:if>
+                            <xsl:if test="$qualify">
+                                <xsl:attribute name="mustQualify">true</xsl:attribute>
+                            </xsl:if>
                             <xsl:if test="$useMaxOccurs">
                                <xsl:attribute name="xmlMaxOccurs">
                                    <xsl:value-of select="@maxOccurs"/>
@@ -607,6 +618,9 @@
                             </xsl:if>
                             <xsl:if test="$nillable">
                                 <xsl:attribute name="nillable">true</xsl:attribute>
+                            </xsl:if>
+                            <xsl:if test="$qualify">
+                                <xsl:attribute name="mustQualify">true</xsl:attribute>
                             </xsl:if>
                             <xsl:if test="$useMaxOccurs">
                                <xsl:attribute name="xmlMaxOccurs">
@@ -650,6 +664,9 @@
                             </xsl:if>
                             <xsl:if test="$nillable">
                                 <xsl:attribute name="nillable">true</xsl:attribute>
+                            </xsl:if>
+                            <xsl:if test="$qualify">
+                                <xsl:attribute name="mustQualify">true</xsl:attribute>
                             </xsl:if>
                             <xsl:if test="$useMaxOccurs">
                                <xsl:attribute name="xmlMaxOccurs">
@@ -718,6 +735,9 @@
                             <xsl:if test="$nillable">
                                 <xsl:attribute name="nillable">true</xsl:attribute>
                             </xsl:if>
+                            <xsl:if test="$qualify">
+                                <xsl:attribute name="mustQualify">true</xsl:attribute>
+                            </xsl:if>
                             <xsl:if test="$useMaxOccurs">
                                <xsl:attribute name="xmlMaxOccurs">
                                    <xsl:value-of select="@maxOccurs"/>
@@ -758,6 +778,9 @@
                         </xsl:if>
                         <xsl:if test="$nillable">
                             <xsl:attribute name="nillable">true</xsl:attribute>
+                        </xsl:if>
+                        <xsl:if test="$qualify">
+                            <xsl:attribute name="mustQualify">true</xsl:attribute>
                         </xsl:if>
                         <xsl:if test="$useMaxOccurs">
                            <xsl:attribute name="xmlMaxOccurs">
@@ -800,9 +823,11 @@
                  <xsl:if test="$inapplicable">
                      <xsl:attribute name="inapplicable">true</xsl:attribute>
                  </xsl:if>
-
                  <xsl:if test="$nillable">
                      <xsl:attribute name="nillable">true</xsl:attribute>
+                 </xsl:if>
+                 <xsl:if test="$qualify">
+                     <xsl:attribute name="mustQualify">true</xsl:attribute>
                  </xsl:if>
                  <xsl:if test="$useMaxOccurs">
                    <xsl:attribute name="xmlMaxOccurs">
@@ -829,6 +854,9 @@
                  </xsl:if>
                  <xsl:if test="$nillable">
                      <xsl:attribute name="nillable">true</xsl:attribute>
+                 </xsl:if>
+                 <xsl:if test="$qualify">
+                     <xsl:attribute name="mustQualify">true</xsl:attribute>
                  </xsl:if>
                  <xsl:if test="$useMaxOccurs">
                    <xsl:attribute name="xmlMaxOccurs">

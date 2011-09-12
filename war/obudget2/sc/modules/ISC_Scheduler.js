@@ -1,6 +1,6 @@
 /*
  * Isomorphic SmartClient
- * Version SC_SNAPSHOT-2010-12-31 (2010-12-31)
+ * Version SC_SNAPSHOT-2011-08-02 (2011-08-02)
  * Copyright(c) 1998 and beyond Isomorphic Software, Inc. All rights reserved.
  * "SmartClient" is a trademark of Isomorphic Software, Inc.
  *
@@ -163,7 +163,7 @@ isc.defineClass("QuartzJobDetailPane","VLayout");isc.A=isc.QuartzJobDetailPane.g
 );isc.B._maxIndex=isc.C+2;isc.defineClass("QuartzManager","VLayout");isc.A=isc.QuartzManager.getPrototype();isc.A.headerDefaults={_constructor:"ToolStrip",width:"100%",height:33,titleDefaults:{_constructor:"Label",contents:"&nbsp;<b>Jobs</b>"},refreshBtnDefaults:{_constructor:"ToolStripButton",showRollOver:false,icon:"[SKIN]actions/refresh.png",prompt:"Refresh jobs",click:"this.creator.creator.jobGrid.refresh()"},addBtnDefaults:{_constructor:"ToolStripButton",showRollOver:false,icon:"[SKIN]actions/add.png",prompt:"Add job",click:"this.creator.creator.jobEdit.editNew()"},removeBtnDefaults:{_constructor:"ToolStripButton",showRollOver:false,icon:"[SKIN]actions/remove.png",prompt:"Remove job",click:"this.creator.creator.jobGrid.removeSelectedData()"},members:["autoChild:title","starSpacer","autoChild:refreshBtn","autoChild:addBtn","autoChild:removeBtn"]};isc.A.jobGridDefaults={_constructor:"ListGrid",autoDraw:false,width:"100%",height:300,dataSource:"QuartzJobs",useAllDataSourceFields:true,autoFetchData:true,selectionType:"single",recordClick:"this.creator.jobEdit.edit(record)",refresh:function(){this.invalidateCache();this.fetchData()},add:function(){this.creator.jobEdit.editNew()},remove:function(){}};isc.A.jobDetailHeaderDefaults={_constructor:"ToolStrip",width:"100%",height:33,titleDefaults:{_constructor:"Label",contents:"&nbsp;<b>Job Detail</b>"},members:["autoChild:title"]};isc.A.jobEditDefaults={_constructor:"QuartzJobDetailPane",autoDraw:false};isc.A.members=["autoChild:header","autoChild:jobGrid","autoChild:jobEdit"];isc._moduleEnd=isc._SQLBrowser_end=(isc.timestamp?isc.timestamp():new Date().getTime());if(isc.Log&&isc.Log.logIsInfoEnabled('loadTime'))isc.Log.logInfo('SQLBrowser module init time: ' + (isc._moduleEnd-isc._moduleStart) + 'ms','loadTime');delete isc.definingFramework;}else{if(window.isc && isc.Log && isc.Log.logWarn)isc.Log.logWarn("Duplicate load of module 'SQLBrowser'.");}
 /*
  * Isomorphic SmartClient
- * Version SC_SNAPSHOT-2010-12-31 (2010-12-31)
+ * Version SC_SNAPSHOT-2011-08-02 (2011-08-02)
  * Copyright(c) 1998 and beyond Isomorphic Software, Inc. All rights reserved.
  * "SmartClient" is a trademark of Isomorphic Software, Inc.
  *

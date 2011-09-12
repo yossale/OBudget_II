@@ -40,7 +40,7 @@ isc.DataSource.create({
         },
         length:{
             title:"Length",
-            type:"positiveInteger",
+            type:"integer",
             xmlAttribute:"true"
         },
         xmlRequired:{
@@ -180,6 +180,10 @@ isc.DataSource.create({
         ignore:{
             type:"boolean"
         },
+        unknownType:{
+            type:"boolean",
+            xmlAttribute:"true"
+        },
         canSortClientOnly:{
             type:"boolean",
             xmlAttribute:"true"
@@ -196,6 +200,10 @@ isc.DataSource.create({
         },
         frozen:{
             title:"Frozen",
+            type:"boolean",
+            xmlAttribute:"true"
+        },
+        canExport:{
             type:"boolean",
             xmlAttribute:"true"
         }

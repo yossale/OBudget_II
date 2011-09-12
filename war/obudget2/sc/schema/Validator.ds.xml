@@ -15,10 +15,10 @@ isc.DataSource.create({
             type:"string"
         },
         max:{
-            type:"number"
+            type:"float"
         },
         min:{
-            type:"number"
+            type:"float"
         },
         exclusive:{
             type:"boolean"

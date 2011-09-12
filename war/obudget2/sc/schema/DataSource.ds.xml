@@ -67,8 +67,19 @@ isc.DataSource.create({
         showPrompt:{
             type:"boolean"
         },
+        dataSourceVersion:{
+            title:"DataSource Version",
+            type:"number",
+            visibility:"internal",
+            xmlAttribute:"true"
+        },
         dbName:{
             title:"Database Name",
+            type:"string",
+            xmlAttribute:"true"
+        },
+        schema:{
+            title:"Schema",
             type:"string",
             xmlAttribute:"true"
         },
@@ -217,7 +228,8 @@ isc.DataSource.create({
             type:"Object"
         },
         autoDeriveSchema:{
-            type:"boolean"
+            type:"boolean",
+            xmlAttribute:"true"
         },
         useLocalValidators:{
             type:"boolean"
@@ -226,7 +238,8 @@ isc.DataSource.create({
             type:"boolean"
         },
         qualifyColumnNames:{
-            type:"boolean"
+            type:"boolean",
+            xmlAttribute:"true"
         },
         validateRelatedRecords:{
             type:"boolean"
@@ -241,9 +254,20 @@ isc.DataSource.create({
             type:"string"
         },
         beanClassName:{
-            type:"string"
+            type:"string",
+            xmlAttribute:"true"
         },
         autoJoinTransactions:{
+            type:"boolean",
+            xmlAttribute:"true"
+        },
+        sparseUpdates:{
+            type:"boolean"
+        },
+        noNullUpdates:{
+            type:"boolean"
+        },
+        canExport:{
             type:"boolean"
         }
     }

@@ -16,6 +16,26 @@
             <xsl:if test="/DataSource/@schema">
                 <xsl:attribute name="schema"><xsl:value-of select="/DataSource/@schema"/></xsl:attribute>
             </xsl:if>
+            <xsl:if test="/DataSource/fields/field[@type='imageFile']">
+                <xsl:if test="not(/DataSource/fields/field[@name='image_filename'])">
+                    <xsl:element name="property">
+                        <xsl:attribute name="name">image_filename</xsl:attribute>
+                        <xsl:attribute name="type">text</xsl:attribute>
+                    </xsl:element>
+                </xsl:if>
+                <xsl:if test="not(/DataSource/fields/field[@name='image_filesize'])">
+                    <xsl:element name="property">
+                        <xsl:attribute name="name">image_filesize</xsl:attribute>
+                        <xsl:attribute name="type">long</xsl:attribute>
+                    </xsl:element>
+                </xsl:if>
+                <xsl:if test="not(/DataSource/fields/field[@name='image_date_created'])">
+                    <xsl:element name="property">
+                        <xsl:attribute name="name">image_date_created</xsl:attribute>
+                        <xsl:attribute name="type">date</xsl:attribute>
+                    </xsl:element>
+                </xsl:if>
+            </xsl:if>
 
             <xsl:for-each select="/DataSource/fields/field">
                 <!-- Simply exclude fields marked as customSQL: true from the mapping -->
@@ -91,6 +111,8 @@
                                         <xsl:otherwise>string</xsl:otherwise>
                                     </xsl:choose>
                                 </xsl:when>
+				<!-- imageType -->
+				<xsl:when test="@type = 'imageFile'">com.isomorphic.hibernate.BlobUserType</xsl:when>
     
                                 <!-- otherwise default to string -->
                                 <xsl:otherwise>

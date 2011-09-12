@@ -9,7 +9,7 @@ isc.DataSource.create({
             name:"version"
         },
         dsXML:{
-            length:"50000",
+            length:50000,
             name:"dsXML",
             type:"text"
         },
@@ -56,7 +56,7 @@ isc.DataSource.create({
             language:"groovy",
             operationId:"dsFromConfig",
             operationType:"custom",
-            script:"\n            if (!com.isomorphic.auth.DevModeAuthFilter.devModeAuthorized(request)) throw new Exception(\"Not Authorized\");\n            import com.isomorphic.store.*;\n            import com.isomorphic.datasource.*;\n\n            def ds = DataSource.fromConfig(values.config);\n            if (ds != null) {\n                DataStructCache.addCachedObjectWithNoConfigFile(ds.getName(), ds);\n            }\n            return [ds:ds, dsXML: ds.toXML()];\n	    "
+            script:"\n            if (!com.isomorphic.auth.DevModeAuthFilter.devModeAuthorized(request)) throw new Exception(\"Not Authorized\");\n            import com.isomorphic.store.*;\n            import com.isomorphic.datasource.*;\n\n            def ds = DataSource.fromConfig(values.config, dsRequest);\n            if (ds != null) {\n                DataStructCache.addCachedObjectWithNoConfigFile(ds.getName(), ds);\n            }\n            return [ds:ds, dsXML: ds.toXML()];\n	    "
         }
     ]
 })

@@ -236,7 +236,24 @@ function obudget2(){
     ())
       return 'opera';
     if (function(){
-      return ua.indexOf('webkit') != -1;
+      return ua.indexOf('webkit') != -1 || function(){
+        if (ua.indexOf('chromeframe') != -1) {
+          return true;
+        }
+        if (typeof window['ActiveXObject'] != 'undefined') {
+          try {
+            var obj = new ActiveXObject('ChromeTab.ChromeFrame');
+            if (obj) {
+              obj.registerBhoIfNeeded();
+              return true;
+            }
+          }
+           catch (e) {
+          }
+        }
+        return false;
+      }
+      ();
     }
     ())
       return 'safari';
@@ -294,12 +311,12 @@ function obudget2(){
   $stats && $stats({moduleName:'obudget2', sessionId:$sessionId_0, subSystem:'startup', evtGroup:'bootstrap', millis:(new Date).getTime(), type:'selectingPermutation'});
   if (!isHostedMode()) {
     try {
-      unflattenKeylistIntoAnswers(['safari'], '01D3DE245CED1B8164E171B19945C372');
-      unflattenKeylistIntoAnswers(['gecko1_8'], '1D43C4B55AFBFB6A07CF520F31C2BCD2');
-      unflattenKeylistIntoAnswers(['ie8'], '78F15D20845F77FF85D924E2B51B4EBF');
-      unflattenKeylistIntoAnswers(['ie9'], '8230D785ADD9B1917DD6AA8878F2B216');
-      unflattenKeylistIntoAnswers(['ie6'], 'BF2CB2B08725F5CA787E1D27E5E7E97A');
-      unflattenKeylistIntoAnswers(['opera'], 'F2DF4A33662EF1E9901389CA52B13926');
+      unflattenKeylistIntoAnswers(['ie6'], '03E99C6F68A84200EA35D965AEB6C984');
+      unflattenKeylistIntoAnswers(['opera'], '14ECF3924772E31906561489BF055827');
+      unflattenKeylistIntoAnswers(['ie9'], '1983AA614F98569EB8953C2BE1C6184F');
+      unflattenKeylistIntoAnswers(['safari'], '66914CE1FE53145EEF70BE5E50F24813');
+      unflattenKeylistIntoAnswers(['gecko1_8'], 'CACD52EDD71F2B76A6E24CC765B09500');
+      unflattenKeylistIntoAnswers(['ie8'], 'F630582FD1ECCE14CA57DDDB2326EF5A');
       strongName = answers[computePropValue('user.agent')];
       var idx = strongName.indexOf(':');
       if (idx != -1) {
