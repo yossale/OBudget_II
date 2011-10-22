@@ -1,6 +1,12 @@
 package com.yossale.client;
 
+import javax.servlet.ServletException;
+
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Anchor;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.visualization.client.AbstractDataTable.ColumnType;
 import com.google.gwt.visualization.client.DataTable;
 import com.google.gwt.visualization.client.VisualizationUtils;
@@ -22,6 +28,9 @@ import com.smartgwt.client.widgets.tree.TreeGridField;
  */
 public class OBudget2 implements EntryPoint {
 
+  private VerticalPanel loginPanel = new VerticalPanel();
+  private Label loginLabel = new Label("Please sign in to your Google Account to access the StockWatcher application.");
+  private Anchor signInLink = new Anchor("Sign In");
   protected String returnedJson;
 
   /* The pie creation part should be in a different class * */
@@ -112,9 +121,22 @@ public class OBudget2 implements EntryPoint {
     return budgetTree;
 
   }
-
+  
+  @Override
   public void onModuleLoad() {
+    LoginServiceAsync loginService = GWT.create(LoginService.class);
+    loginService.login(GWT.getModuleBaseURL(), new AsyncCallback<LoginInfo>() {
+      public void onFailure(Throwable error) {
+      }
 
+      public void onSuccess(LoginInfo result) {
+        loadOBudget(result);
+      }
+    });
+
+  }
+
+  private void loadOBudget(LoginInfo loginInfo) {
     TreeGrid budgetTree = generateOneYearBudgetTree();
     ListGrid topicsList = generateGridList();
 
@@ -123,6 +145,9 @@ public class OBudget2 implements EntryPoint {
     stack.addMember(topicsList);
 
     final VStack vStack = new VStack();
+    String currentUser = (loginInfo.isLoggedIn() ? loginInfo.getEmailAddress() : "<a href='" + loginInfo.getLoginUrl() + "'>log in</a>");
+    Label userLabel = new Label(currentUser);
+    vStack.addMember(userLabel);
     vStack.addMember(stack);
 
     Runnable onLoadCallback = new Runnable() {
@@ -138,7 +163,6 @@ public class OBudget2 implements EntryPoint {
     VisualizationUtils.loadVisualizationApi(onLoadCallback, CoreChart.PACKAGE);
 
     vStack.draw();
-
   }
 
 }
