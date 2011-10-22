@@ -1,4 +1,3 @@
-
 package com.yossale.client;
 
 import com.smartgwt.client.data.DataSource;
