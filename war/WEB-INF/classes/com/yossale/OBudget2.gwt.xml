@@ -26,6 +26,7 @@
 
 	<!-- Specify the paths for translatable code -->
 	<source path='client' />
+	<source path='server' />
 	<source path='shared' />
 
 </module>

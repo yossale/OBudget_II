@@ -4,9 +4,9 @@
 	<classpathentry kind="src" output="test-classes" path="test"/>
 	<classpathentry exported="true" kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER/App Engine (2)"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry exported="true" kind="lib" path="/home/ronme/src/deps/smartgwt-2.5/smartgwt.jar"/>
-	<classpathentry exported="true" kind="lib" path="/home/ronme/src/deps/gwt-visualization-1.1.1/gwt-visualization.jar"/>
-	<classpathentry exported="true" kind="lib" path="/home/ronme/src/deps/gwt-visualization-1.1.1/gwt-visualization-javadoc.jar"/>
-	<classpathentry exported="true" kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER/GWT (2)"/>
+	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
+	<classpathentry kind="lib" path="D:/DevEnv/3rdParties/gwt-visualization-1.1.1/gwt-visualization.jar"/>
+	<classpathentry kind="lib" path="D:/DevEnv/3rdParties/gwt-visualization-1.1.1/gwt-visualization-javadoc.jar"/>
+	<classpathentry kind="lib" path="D:/DevEnv/3rdParties/smartgwt-2.5/smartgwt.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
