@@ -1,6 +1,6 @@
 #Ignore list#
 .class
-.classpath
+*.classpath
 .log
 .settings
 .svn
