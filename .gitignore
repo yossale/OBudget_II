@@ -1,0 +1,15 @@
+#Ignore list#
+*.class
+*.classpath
+*.log
+*.settings
+.svn
+*.js
+gwt-unitCache/*
+settings/*
+test-classes/*
+war/obudget2/*
+war/WEB-INF/classes/*
+war/WEB-INF/deploy/obudget2/symbolMaps/*
+war/WEB-INF/lib/*
+
