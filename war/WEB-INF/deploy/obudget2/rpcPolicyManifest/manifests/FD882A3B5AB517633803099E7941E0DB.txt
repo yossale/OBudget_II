@@ -1,0 +1,2 @@
+serviceClass: com.yossale.client.LoginService
+path: 20F77D9FD606295DA5D8320A7290654E.gwt.rpc
