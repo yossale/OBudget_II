@@ -1,4 +1,4 @@
-package com.yossale.client;
+package com.yossale.server;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
