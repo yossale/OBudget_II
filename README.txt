@@ -1,4 +1,5 @@
 Working with the OBudget2 project :
+0. Install Git on your computer. http://help.github.com/win-set-up-git/
 
 1. On github, fork the project from git@github.com:yossale/OBudget_II.git
 

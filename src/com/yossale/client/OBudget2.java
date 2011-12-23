@@ -35,7 +35,7 @@ public class OBudget2 implements EntryPoint {
     TreeGridField itemDescriptionField = new TreeGridField("title", "Title");
 
     TreeGridField grossAllocated = new TreeGridField("gross_allocated",
-        "הקצאה ברוטו");
+        "gross_allocated");
 
     final TreeGrid listGrid = new TreeGrid();
 
@@ -67,10 +67,10 @@ public class OBudget2 implements EntryPoint {
     budgetTree.setDisplayNodeType(DisplayNodeType.NULL);
     budgetTree.setLoadDataOnDemand(false);
     OneYearBudgetDataSource instance = OneYearBudgetDataSource.getInstance();
-    TreeGridField titleField = new TreeGridField("title", "שם סעיף");
+    TreeGridField titleField = new TreeGridField("title", "title");
     titleField.setFrozen(true);
 
-    TreeGridField codeField = new TreeGridField("code", "מספר");
+    TreeGridField codeField = new TreeGridField("code", "code");
 
     /**
      * We're basically working on a tableTree (TreeGrid = TableTree) , so we can
@@ -99,6 +99,8 @@ public class OBudget2 implements EntryPoint {
         loadOBudget(result);
       }
     });
+    
+    getAsyncExpenseForYear(2002);
 
   }
 
@@ -130,75 +132,29 @@ public class OBudget2 implements EntryPoint {
     vStack.addMember(new Label("V0.4"));
     vStack.addMember(stack);
     vStack.addMember(graph);
-    
-    
-    
+
     vStack.draw();
   }
+  
+  private void displayExpenses(ExpenseRecord[] result) {
+	  
+	  
+  }
+  
+  /**
+   * Call the backend server to get the expenses for the given year.
+   * Will call displayExpenses when the data returns.
+   * @param year
+   */
+  private void getAsyncExpenseForYear(int year) {
+	ExpenseServiceAsync expenseService = GWT.create(ExpenseService.class);
+    expenseService.getExpenses(year, new AsyncCallback<ExpenseRecord[]>() {
+      public void onFailure(Throwable error) {
+      }
 
-//  private class GraphDataPojo {
-//
-//    /*
-//     * {"net_allocated":41737, "code":"0001", "gross_allocated":42537,
-//     * "title":"נשיא המדינה ולשכתו", "gross_used":79, "numericCode":10001,
-//     * "parentCode":100}
-//     */
-//
-//    private String title = null;
-//    private long numericCode = 0;
-//    private long parentCode = 0;
-//    private int grossAllocated = 0;
-//    private int netAllocated = 0;
-//    private int grossUsed = 0;
-//
-//    public GraphDataPojo() {
-//
-//    }
-//
-//    public GraphDataPojo(Record r) {
-//      title = r.getAttribute("title");
-//      numericCode = Long.parseLong(r.getAttribute("code"));
-//      parentCode = Long.parseLong(r.getAttribute("parentCode"));
-//      grossAllocated = Integer.parseInt(r.getAttribute("gross_allocated"));
-//      netAllocated = Integer.parseInt(r.getAttribute("net_allocated"));
-//      grossUsed = Integer.parseInt(r.getAttribute("gross_used"));
-//    }
-//
-//    public GraphDataPojo(String title, long numericCode, long parentCode,
-//        int grossAllocation, int netAllocation, int grossUsed) {
-//      super();
-//      this.title = title;
-//      this.numericCode = numericCode;
-//      this.parentCode = parentCode;
-//      this.grossAllocated = grossAllocation;
-//      this.netAllocated = netAllocation;
-//      this.grossUsed = grossUsed;
-//    }
-//
-//    public String getTitle() {
-//      return title;
-//    }
-//
-//    public long getNumericCode() {
-//      return numericCode;
-//    }
-//
-//    public long getParentCode() {
-//      return parentCode;
-//    }
-//
-//    public int getGrossAllocated() {
-//      return grossAllocated;
-//    }
-//
-//    public int getNetAllocated() {
-//      return netAllocated;
-//    }
-//
-//    public int getGrossUsed() {
-//      return grossUsed;
-//    }
-//
-//  }
-
+      public void onSuccess(ExpenseRecord[] result) {
+    	  displayExpenses(result);
+      }
+    });
+  }
 }
