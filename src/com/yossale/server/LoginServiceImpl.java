@@ -6,7 +6,7 @@ import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-import com.yossale.client.Expense;
+//import com.yossale.client.Expense;
 import com.yossale.client.LoginInfo;
 import com.yossale.client.LoginService;
 

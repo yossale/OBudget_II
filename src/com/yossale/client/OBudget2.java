@@ -14,6 +14,7 @@ import com.smartgwt.client.widgets.tree.DataChangedEvent;
 import com.smartgwt.client.widgets.tree.DataChangedHandler;
 import com.smartgwt.client.widgets.tree.TreeGrid;
 import com.smartgwt.client.widgets.tree.TreeGridField;
+import com.yossale.client.datastore.OneYearBudgetDataSource;
 import com.yossale.client.graph.GraphCanvas;
 
 /**
@@ -86,10 +87,6 @@ public class OBudget2 implements EntryPoint {
     return budgetTree;
 
   }
-
-  
-
-  
 
   @Override
   public void onModuleLoad() {
