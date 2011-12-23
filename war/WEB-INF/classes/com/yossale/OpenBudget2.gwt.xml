@@ -6,7 +6,7 @@
 	<!-- Inherit the default GWT style sheet. You can change -->
 	<!-- the theme of your GWT application by uncommenting -->
 	<!-- any one of the following lines. -->
-	<!-- inherits name='com.google.gwt.user.theme.clean.Clean'/ -->
+	<inherits name='com.google.gwt.user.theme.clean.Clean'/>
 	<!-- <inherits name='com.google.gwt.user.theme.standard.Standard'/> -->
 	<!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
 	<!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/> -->
@@ -14,6 +14,7 @@
 	<inherits name="com.smartgwt.SmartGwt" />
 	<inherits name="com.smartgwt.SmartGwtNoTheme" />
 	<inherits name='com.google.gwt.visualization.Visualization' />
+
 	<!-- <inherits name="com.smartclient.theme.enterpriseblue.EnterpriseBlue" 
 		/> <inherits name="com.smartclient.theme.enterpriseblue.EnterpriseBlueResources" 
 		/> -->
@@ -24,7 +25,7 @@
 	<entry-point class='com.yossale.client.OBudget2' />
 
 	<!-- Specify the paths for translatable code -->
-	<source path='client' />
+	<source path='client' />	
 	<source path='shared' />
 
 </module>

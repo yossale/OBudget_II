@@ -1,21 +1,20 @@
 package com.yossale.client;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.visualization.client.AbstractDataTable.ColumnType;
-import com.google.gwt.visualization.client.DataTable;
-import com.google.gwt.visualization.client.VisualizationUtils;
-import com.google.gwt.visualization.client.visualizations.corechart.AreaChart;
-import com.google.gwt.visualization.client.visualizations.corechart.CoreChart;
-import com.google.gwt.visualization.client.visualizations.corechart.Options;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.smartgwt.client.data.RecordList;
 import com.smartgwt.client.types.DisplayNodeType;
 import com.smartgwt.client.types.DragDataAction;
 import com.smartgwt.client.types.GroupStartOpen;
 import com.smartgwt.client.widgets.Label;
-import com.smartgwt.client.widgets.grid.ListGrid;
 import com.smartgwt.client.widgets.layout.HStack;
 import com.smartgwt.client.widgets.layout.VStack;
+import com.smartgwt.client.widgets.tree.DataChangedEvent;
+import com.smartgwt.client.widgets.tree.DataChangedHandler;
 import com.smartgwt.client.widgets.tree.TreeGrid;
 import com.smartgwt.client.widgets.tree.TreeGridField;
+import com.yossale.client.graph.GraphCanvas;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -23,36 +22,11 @@ import com.smartgwt.client.widgets.tree.TreeGridField;
 public class OBudget2 implements EntryPoint {
 
   protected String returnedJson;
-
-  /* The pie creation part should be in a different class * */
-
-  private Options createOptions() {
-    Options options = Options.create();
-    options.setWidth(400);
-    options.setHeight(240);
-    // options.set3D(true);
-    options.setTitle("My Daily Activities");
-    return options;
-  }
-
-  private DataTable createTable() {
-    DataTable data = DataTable.create();
-    data.addColumn(ColumnType.NUMBER, "Year");
-    data.addColumn(ColumnType.NUMBER, "Sales");
-    data.addColumn(ColumnType.NUMBER, "Expenses");
-    data.addRows(2);
-    data.setValue(0, 0, 2004);
-    data.setValue(0, 1, 1000);
-    data.setValue(0, 2, 400);
-    data.setValue(1, 0, 2005);
-    data.setValue(1, 1, 1170);
-    data.setValue(0, 1, 460);
-    return data;
-  }
-
+  private final GraphCanvas graph = new GraphCanvas();
+  
   /***/
 
-  public ListGrid generateGridList() {
+  public TreeGrid generateGridList() {
 
     TreeGridField codeField = new TreeGridField("code", "Code");
     codeField.setIncludeInRecordSummary(false);
@@ -92,10 +66,10 @@ public class OBudget2 implements EntryPoint {
     budgetTree.setDisplayNodeType(DisplayNodeType.NULL);
     budgetTree.setLoadDataOnDemand(false);
     OneYearBudgetDataSource instance = OneYearBudgetDataSource.getInstance();
-    TreeGridField titleField = new TreeGridField("title", "שם הסעיף");
+    TreeGridField titleField = new TreeGridField("title", "שם סעיף");
     titleField.setFrozen(true);
 
-    TreeGridField codeField = new TreeGridField("code", "קוד סעיף");
+    TreeGridField codeField = new TreeGridField("code", "מספר");
 
     /**
      * We're basically working on a tableTree (TreeGrid = TableTree) , so we can
@@ -113,32 +87,121 @@ public class OBudget2 implements EntryPoint {
 
   }
 
-  public void onModuleLoad() {
+  
 
+  
+
+  @Override
+  public void onModuleLoad() {
+    LoginServiceAsync loginService = GWT.create(LoginService.class);
+    loginService.login(GWT.getModuleBaseURL(), new AsyncCallback<LoginInfo>() {
+      public void onFailure(Throwable error) {
+      }
+
+      public void onSuccess(LoginInfo result) {
+        loadOBudget(result);
+      }
+    });
+
+  }
+
+  private void loadOBudget(LoginInfo loginInfo) {    
+    
     TreeGrid budgetTree = generateOneYearBudgetTree();
-    ListGrid topicsList = generateGridList();
+    final TreeGrid topicsList = generateGridList();
 
     HStack stack = new HStack();
     stack.addMember(budgetTree);
     stack.addMember(topicsList);
 
-    final VStack vStack = new VStack();
-    vStack.addMember(stack);
+    topicsList.getData().addDataChangedHandler(new DataChangedHandler() {
 
-    Runnable onLoadCallback = new Runnable() {
-      public void run() {
-        AreaChart pie = new AreaChart(createTable(), createOptions());
-        vStack.addMember(new Label("Hello"));
-        // pie.addSelectHandler(createSelectHandler(statsPie));
-        vStack.addMember(pie);
+      @Override
+      public void onDataChanged(DataChangedEvent event) {
+
+        RecordList fields = topicsList.getDataAsRecordList();
+        graph.updateGraph(fields);
 
       }
-    };
+    });
 
-    VisualizationUtils.loadVisualizationApi(onLoadCallback, CoreChart.PACKAGE);
-
+    final VStack vStack = new VStack();
+    String currentUser = (loginInfo.isLoggedIn() ? loginInfo.getEmailAddress()
+        : "<a href='" + loginInfo.getLoginUrl() + "'>log in</a>");
+    Label userLabel = new Label(currentUser);
+    vStack.addMember(userLabel);
+    vStack.addMember(new Label("V0.4"));
+    vStack.addMember(stack);
+    vStack.addMember(graph);
+    
+    
+    
     vStack.draw();
-
   }
+
+//  private class GraphDataPojo {
+//
+//    /*
+//     * {"net_allocated":41737, "code":"0001", "gross_allocated":42537,
+//     * "title":"נשיא המדינה ולשכתו", "gross_used":79, "numericCode":10001,
+//     * "parentCode":100}
+//     */
+//
+//    private String title = null;
+//    private long numericCode = 0;
+//    private long parentCode = 0;
+//    private int grossAllocated = 0;
+//    private int netAllocated = 0;
+//    private int grossUsed = 0;
+//
+//    public GraphDataPojo() {
+//
+//    }
+//
+//    public GraphDataPojo(Record r) {
+//      title = r.getAttribute("title");
+//      numericCode = Long.parseLong(r.getAttribute("code"));
+//      parentCode = Long.parseLong(r.getAttribute("parentCode"));
+//      grossAllocated = Integer.parseInt(r.getAttribute("gross_allocated"));
+//      netAllocated = Integer.parseInt(r.getAttribute("net_allocated"));
+//      grossUsed = Integer.parseInt(r.getAttribute("gross_used"));
+//    }
+//
+//    public GraphDataPojo(String title, long numericCode, long parentCode,
+//        int grossAllocation, int netAllocation, int grossUsed) {
+//      super();
+//      this.title = title;
+//      this.numericCode = numericCode;
+//      this.parentCode = parentCode;
+//      this.grossAllocated = grossAllocation;
+//      this.netAllocated = netAllocation;
+//      this.grossUsed = grossUsed;
+//    }
+//
+//    public String getTitle() {
+//      return title;
+//    }
+//
+//    public long getNumericCode() {
+//      return numericCode;
+//    }
+//
+//    public long getParentCode() {
+//      return parentCode;
+//    }
+//
+//    public int getGrossAllocated() {
+//      return grossAllocated;
+//    }
+//
+//    public int getNetAllocated() {
+//      return netAllocated;
+//    }
+//
+//    public int getGrossUsed() {
+//      return grossUsed;
+//    }
+//
+//  }
 
 }
